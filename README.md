@@ -16,7 +16,7 @@ On arch linux :
 
 None AUR packages :
 
-`sudo pacman -S hyprland mako hyprpicker hyprpaper hyprpolkitagent network-manager-applet neovim wofi zsh zsh-completions fastfetch openssh ghostty nautilus stow`
+`sudo pacman -S hyprland mako hyprpicker hyprpaper hyprpolkitagent network-manager-applet neovim wofi zsh zsh-completions fastfetch openssh ghostty nautilus stow ttf-cascadia-code-nerd`
 
 AUR packages :
 

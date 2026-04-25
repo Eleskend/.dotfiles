@@ -4,6 +4,8 @@
 	`wpctl get-volume @DEFAULT_SINK@ | awk '{print "{ \\"volume\\": " $2", \\"muted\\":\\""$3"\\"}"}'`)
 (defpoll brightnesslevel :interval "300ms"
 	`brightnessctl g`)
+(defpoll workspace :interval "300ms"
+	`hyprctl activeworkspace -j`)
 
 (defvar showsound false)
 (defvar showbrightness false)
@@ -24,7 +26,7 @@
 		:orientation "vertical"
 		:class "bx"
 		(systeminfo)
-		(label :text "wait")
+		(workspaces :workspacenumber {workspace.id})
 		(powermenu)
 	)
 )
@@ -70,11 +72,17 @@
 	)
 )
 
+(defwidget workspaces[workspacenumber]
+	(box :orientation "vertical"
+		(for workspacen in "[1, 2, 3, 4, 5]"
+			(label :text {workspacenumber == workspacen ? "󰫈" : "󰋙"})
+		)
+	)
+)
+
 (defwidget powermenu[]
-	(box :orientation "vertical" :valign "end" :height 200 :class "powermenu"
+	(box :orientation "vertical" :valign "end" :height 125 :class "powermenu"
 	(button :onclick "shutdown -h now" "󰐥")
 	(button :onclick "reboot" "")
-	(button :onclick "hyprctl dispatch exit" "󰍃")
-	(button :onclick "notify-send 'wait a lil'" "󰒲")
-	(button :onclick "notify-send 'DO NOT'" ""))
+	(button :onclick "hyprctl dispatch exit" "󰍃"))
 )
