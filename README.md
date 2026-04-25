@@ -3,7 +3,10 @@
 My personal dotfiles for:
 
 - hyprland
+- neovim
+- wofi
 - eww
 - zsh (with oh-my-zsh)
 - ghostty
-etc... (I need too find the all)
+- zen-browser
+- ssh
