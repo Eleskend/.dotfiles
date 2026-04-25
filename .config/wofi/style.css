@@ -1,0 +1,38 @@
+* {
+	color: #e9c46a;
+	font-family: CaskaydiaCoveNerdFont;
+}
+
+window {
+	border-radius: 10px;
+	background-color: #3d348b;
+}
+
+#input {
+	margin: 5px;
+	border: 2px solid #3d348b;
+	background: linear-gradient(#e66465, #9198e5);
+}
+
+#img {
+	padding-right: 5px;
+}
+
+#inner-box {
+	border-radius: 10px;
+	background-color: #003566;
+}
+
+#outer-box {
+	margin: 5px;
+	border-radius: 10px;
+	background: linear-gradient(0.25turn, #001d3d, #003566);
+}
+
+#scroll {
+	border-radius: 10px;
+}
+
+#entry:selected {
+	background-color: #7678ed;
+}

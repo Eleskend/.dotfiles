@@ -1,0 +1,79 @@
+label {
+  color: #5700ab;
+}
+
+.sysinfo {
+  margin: 10px 5px;
+  padding: 1px;
+}
+
+.sysinfo > *
+{
+  border: 2px solid #5700ab;
+  border-radius: 5px;
+  padding: 5px 1px;
+  background-color: #1d0237;
+}
+
+.soundtitle {
+  margin: 5px;
+  color: #0077b6;
+}
+
+.soundscale {
+  margin-bottom: 15px;
+}
+
+.soundscale highlight {
+  border-radius: 4px;
+  padding: 4px;
+  background-color: #022752;
+}
+
+.soundscale slider {
+  padding: 4px;
+  border-radius: 4px;
+  background-color: #0077b6;
+}
+
+.brightnesstitle {
+  margin: 5px;
+  color: #ffcc0e;
+}
+
+.brightnessscale  {
+  margin-bottom: 15px;
+}
+.brightnessscale highlight {
+  border-radius: 4px;
+  padding: 4px;
+  background-color: #ffa310;
+}
+
+.brightnessscale slider {
+  padding: 4px;
+  border-radius: 4px;
+  background-color: #ffcc0e;
+}
+
+.bar {
+  border-radius: 5px;
+  background-color: #030237;
+}
+
+.powermenu {
+  margin-bottom: 10px;
+}
+
+.powermenu > *{
+  border: 2px solid #5700ab;
+  background-color: #03045e;
+  border-radius:5px;
+  margin: 2px 5px;
+}
+
+.powermenu > *:hover {
+  border: 2px solid #5700ab;
+  transition: 0.5s;
+  background-color: #02039c;
+}

@@ -1,0 +1,80 @@
+(defpoll time :interval "1s"
+	`date +'{"hour": "%H", "min": "%M"}'`)
+(defpoll soundlevel :interval "300ms"
+	`wpctl get-volume @DEFAULT_SINK@ | awk '{print "{ \\"volume\\": " $2", \\"muted\\":\\""$3"\\"}"}'`)
+(defpoll brightnesslevel :interval "300ms"
+	`brightnessctl g`)
+
+(defvar showsound false)
+(defvar showbrightness false)
+
+(defwindow bar
+   :class "bar"
+   :monitor 0
+   :stacking "fg"
+   :exclusive "true"
+   :focusable "none"
+   :geometry (geometry
+              :x "0"
+              :y "10px"
+              :width "2.5%"
+              :height "95%"
+              :anchor "left center")
+	(centerbox 
+		:orientation "vertical"
+		:class "bx"
+		(systeminfo)
+		(label :text "wait")
+		(powermenu)
+	)
+)
+
+(defwidget battery[level]
+	(label
+	:text "${EWW_BATTERY.BAT0.status == "Discharging" ? "" : "󱐋"}${level<=10 ? "" : level<=25 ? "": level<=50 ? "": level<=75 ? "": level<=100 ? "" : "󱟩"}"
+	:tooltip "Battery: ${level}%"
+	:style "color: ${level <= 20 ? "red" : level <= 50 ? "orange" : "green"};padding-top: 10px;"
+	:angle 90)
+)
+
+(defwidget sound[level muted]
+	(eventbox :onhover "${EWW_CMD} update showsound=true" :onhoverlost "${EWW_CMD} update showsound=false"
+		(box :orientation "vertical" :tooltip "Sound level : ${level}%" :space-evenly false
+			(label :text "${muted ? "" : level==0 ? "" : level <= 33 ? "" : level <= 66 ? " " : " "}"
+			:class "soundtitle")
+			(revealer :transition "slidedown" :reveal {showsound && !muted}
+				(scale :height 100 :active {!muted} :class "soundscale" :value {level} :min 0 :max 101 :onchange "wpctl set-volume @DEFAULT_AUDIO_SINK@ {}%" :orientation "v")
+			)
+		)
+	)
+)
+
+(defwidget brightness[level]
+	(eventbox :onhover "${EWW_CMD} update showbrightness=true" :onhoverlost "${EWW_CMD} update showbrightness=false"
+		(box :orientation "vertical" :tooltip "Brightness : ${floor(level*100/15360)}%" :space-evenly false
+			(label :text {level <= 2194 ? "󰃚" : level <= 4388 ? "󰃛" : level <= 6582 ? "󰃜" : level <= 8776 ? "󰃝" : level <= 10970 ? "󰃞" : level <= 13164 ? "󰃟" : "󰃠"} :class "brightnesstitle")
+			(revealer :transition "slidedown" :reveal showbrightness
+				(scale :height 100 :class "brightnessscale" :value {level} :min 1 :max 15361 :onchange "brightnessctl s {}" :orientation "v")
+			)
+		)
+	)
+)
+(defwidget systeminfo[]
+	(box :orientation "vertical" :valign "start" :class "sysinfo" :space-evenly false :spacing 10
+		(button :timeout "30s" :onclick "wofi -d --show drun" "")
+		(label :text "${time.hour}\\n${time.min}")
+		(systray :orientation "vertical" :icon-size 20 :prepend-new false :style "padding: 5px;")
+		(battery :level {EWW_BATTERY.BAT0.capacity})
+		(sound :level {soundlevel.volume*100} :muted {soundlevel.muted == "" ? false : true})
+		(brightness :level {brightnesslevel})
+	)
+)
+
+(defwidget powermenu[]
+	(box :orientation "vertical" :valign "end" :height 200 :class "powermenu"
+	(button :onclick "shutdown -h now" "󰐥")
+	(button :onclick "reboot" "")
+	(button :onclick "hyprctl dispatch exit" "󰍃")
+	(button :onclick "notify-send 'wait a lil'" "󰒲")
+	(button :onclick "notify-send 'DO NOT'" ""))
+)
