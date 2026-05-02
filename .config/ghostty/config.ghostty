@@ -1,4 +1,5 @@
-theme = Synthwave Alpha
+theme = Nord
+background-opacity=0.9
 font-family=CaskaydiaCove Nerd Font
 font-family-bold=CaskaydiaCove NF Bold
 font-family-italic=CaskaydiaCove NF Italic
