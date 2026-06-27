@@ -1,1 +1,1 @@
-export TERMINAL=ghostty
+TERMINAL=ghostty
