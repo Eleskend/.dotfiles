@@ -27,7 +27,7 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 #
 # Example configuration:
 #
-#   output HDMI-A-1 resolution 1920x1080 position 1920,0
+output eDP-1 resolution 1920x1080 position 1920,0 scale 1.3
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
 
@@ -75,6 +75,9 @@ input type:keyboard {
 
     # Start your launcher
     bindsym $mod+d exec $menu
+
+	# Start file explorer
+	bindsym $mod+e exec $explorer
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -134,7 +137,7 @@ input type:keyboard {
 	bindsym $mod+Shift+egrave move container to workspace 6
 	bindsym $mod+Shift+minus move container to workspace 7
 	bindsym $mod+Shift+underscore move container to workspace 8
-	bindsym $mod+Shift+ccdedilla move container to workspace 9
+	bindsym $mod+Shift+ccedilla move container to workspace 9
 	bindsym $mod+Shift+agrave move container to workspace 10
     # Note: workspaces can have any name you want, not just numbers.
     # We just use 1-10 as the default.
@@ -150,7 +153,7 @@ input type:keyboard {
     # Switch the current container between different layout styles
     bindsym $mod+s layout stacking
     bindsym $mod+w layout tabbed
-    bindsym $mod+e layout toggle split
+    bindsym $mod+p layout toggle split
 
     # Make the current focus fullscreen
     bindsym $mod+f fullscreen
@@ -160,9 +163,6 @@ input type:keyboard {
 
     # Swap focus between the tiling area and the floating area
     bindsym $mod+space focus mode_toggle
-
-    # Move focus to the parent container
-    bindsym $mod+p focus parent
 #
 # Scratchpad:
 #
@@ -170,11 +170,11 @@ input type:keyboard {
     # You can send windows there and get them back later.
 
     # Move the currently focused window to the scratchpad
-    bindsym $mod+Shift+minus move scratchpad
+    bindsym $mod+Shift+m move scratchpad
 
     # Show the next scratchpad window or hide the focused scratchpad window.
     # If there are multiple scratchpad windows, this command cycles through them.
-    bindsym $mod+minus scratchpad show
+    bindsym $mod+m scratchpad show
 #
 # Resizing containers:
 #
@@ -206,7 +206,7 @@ bindsym $mod+r mode "resize"
 	bindsym --locked XF86AudioMute exec wpctl set-mute @DEFAULT_SINK@ toggle
 	bindsym --locked XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_SINK@ 5%-
 	bindsym --locked XF86AudioRaiseVolume exec wpctl set-volume --limit 1.0 @DEFAULT_SINK@ 5%+
-	byndsym --locked XF86AudioMicMute exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+	bindsym --locked XF86AudioMicMute exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
 
     # Special keys to control media via playerctl
     bindsym --locked XF86AudioPlay exec playerctl play-pause
@@ -226,18 +226,4 @@ bindsym $mod+r mode "resize"
 # Status Bar:
 #
 # Read `man 5 sway-bar` for more information about this section.
-bar {
-    position top
-
-    # When the status_command prints a new line to stdout, swaybar updates.
-    # The default just shows the current date and time.
-    status_command while date +'%Y-%m-%d %X'; do sleep 1; done
-
-    colors {
-        statusline #ffffff
-        background #323232
-        inactive_workspace #32323200 #32323200 #5c5c5c
-    }
-}
-
 include /etc/sway/config.d/*
